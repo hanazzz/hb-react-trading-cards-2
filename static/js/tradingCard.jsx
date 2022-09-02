@@ -72,7 +72,11 @@ function AddTradingCard(props) {
         'Content-Type': 'application/json',
       },
     })
-      .then(alert('Sucessfully added new card!'));
+      .then(alert('Sucessfully added new card!'))
+      .then((response) => response.json())
+      .then((jsonRes) => {
+        props.displayCard(jsonRes.cardAdded)
+      })
   }
 
   return (
@@ -112,6 +116,17 @@ function TradingCardContainer() {
 
   const [cards, setCards] = React.useState([]);
 
+  function displayCard(newCardData){
+    tradingCards.push(
+      <TradingCard
+        key={newCardData.cardId}
+        name={newCardData.name}
+        skill={newCardData.skill}
+        imgUrl={newCardData.imgUrl}
+      />,
+    );
+  }
+
   React.useEffect(() => {
     fetch('/cards.json')
       .then((response) => response.json())
@@ -131,7 +146,7 @@ function TradingCardContainer() {
 
   return (
     <React.Fragment>
-      <AddTradingCard />
+      <AddTradingCard displayCard={displayCard} />
 
       <h2>Trading Cards</h2>
       <div className="grid">{tradingCards}</div>;

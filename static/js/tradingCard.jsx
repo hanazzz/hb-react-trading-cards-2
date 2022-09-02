@@ -65,7 +65,14 @@ function AddTradingCard(props) {
 
   function addNewCard() {
     // AJAX POST request to submit to the server
-    alert('trying to add new card');
+    fetch('/add-card', {
+      method: 'POST',
+      body: JSON.stringify({"name":name, "skill":skill}),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(alert('Sucessfully added new card!'));
   }
 
   return (

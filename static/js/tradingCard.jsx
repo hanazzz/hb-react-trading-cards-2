@@ -62,7 +62,20 @@ function TradingCard(props) {
 function TradingCardContainer() {
   const tradingCards = [];
 
-  for (const currentCard of tradingCardData) {
+  const [cards, setCards] = React.useState([]);
+
+  // // cards = []
+  // setCards(['cats'])
+  // console.log(cards)
+  // // cards = 'cats'
+
+  React.useEffect(() => {
+    fetch('/cards.json')
+      .then((response) => response.json())
+      .then((data) => setCards(data.cards))
+    }, [])
+
+  for (const currentCard of cards) {
     tradingCards.push(
       <TradingCard
         key={currentCard.cardId}

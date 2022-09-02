@@ -64,11 +64,6 @@ function TradingCardContainer() {
 
   const [cards, setCards] = React.useState([]);
 
-  // // cards = []
-  // setCards(['cats'])
-  // console.log(cards)
-  // // cards = 'cats'
-
   React.useEffect(() => {
     fetch('/cards.json')
       .then((response) => response.json())
